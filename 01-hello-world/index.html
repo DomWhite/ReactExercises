@@ -9,10 +9,19 @@
 <body>
 	<script type="text/jsx">
 	// Define a 'class'
+	var HelloWorld = React.createClass({
+		render: function() {
+			return <div>
+				Hello World!
+			</div>
+		}
+	});
 
-	// React, render this class
+	// React, render this class (instantiate class)
+	var element = React.createElement(HelloWorld); //only the instantiated 'element' (or class) can be rendered
 
 	// React, after you render this class, place it in my body tag
+	React.render(element, document.body);
 
 	</script>
 </body>
