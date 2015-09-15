@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>React Thumbnail List</title>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://fb.me/react-0.13.3.js"></script>
+  <script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
+</head>
+<body>
+  <div class="container">
+
+  </div>
+</body>
+
+  <script type="text/jsx">
+  // Define a 'class'
+  var Badge = React.createClass({ //Classes are capitalised by convention
+    render: function() {
+      return  <button className="btn btn-primary" type="button"> 
+        {this.props.title} <span className="badge">{this.props.number}</span>
+      </button>
+    }
+  });
+
+  var Thumbnail = React.createClass({
+    render: function() {
+      return    <div className="col-sm-6 col-md-4"> 
+        <div className="thumbnail">
+          <img src={this.props.imageUrl} />   {/* REMEMBER TO CLOSE UNCLOSED TAGS. JSX NEEDS ALL TAGS CLOSED */} 
+          <div className="caption">
+            <h3>{this.props.header}</h3>
+            <p>{this.props.description}</p>
+            <p>
+              <Badge title={this.props.title} number={this.props.number} />
+            </p>
+          </div>
+        </div>
+      </div>
+    }
+  });
+
+  var ThumbnailList = React.createClass({
+    render: function() {
+      //each element in the object is mapped to a variable
+      var list = this.props.thumbnailData.map(function(thumbnailProps){
+        return <Thumbnail {...thumbnailProps} />
+      });
+      // variable is rendered
+      return <div>
+        {list}
+      </div>
+    }
+  })
+
+  //this is the props object to pass in
+  //structure of options = { thumbnailData: [{},{}] }
+  var options = {
+    thumbnailData:  [{
+    title: 'See Tutorials',
+    number: 12,
+    header: 'Learn React',
+    description: 'React is a fantastic new library for making fast, dynamic pages. React is a fantastic new library for making fast, dynamic pages.',
+    imageUrl: 'http://formatjs.io/img/react.svg'
+    }, {
+    title: 'See Tutorials',
+    number: 25,
+    header: 'Learn Gulp',
+    description: 'Gulp will speed up your development workflow. Gulp will speed up your development workflow. Gulp will speed up your development workflow.',
+    imageUrl: 'http://brunch.io/images/others/gulp.png'
+    }]
+  };
+  
+  // React, render this class (instantiate class)
+  var element = React.createElement(ThumbnailList, options); //only the instantiated 'element' (or class) can be rendered
+
+  // React, after you render this class, place it in my body tag
+  React.render(element, document.querySelector('.container') );
+
+  </script>
+</html>
